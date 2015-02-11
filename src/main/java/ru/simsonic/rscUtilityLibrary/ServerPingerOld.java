@@ -4,7 +4,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.Charset;
 
-public final class ServerPinger
+public final class ServerPingerOld
 {
 	// IN
 	private final String address;
@@ -17,14 +17,14 @@ public final class ServerPinger
 	private int playersOnline = 0;
 	private int playersMax = 0;
 	// SET
-	public ServerPinger(String address, int port, int timeout, boolean verbose)
+	public ServerPingerOld(String address, int port, int timeout, boolean verbose)
 	{
 		this.address = address;
 		this.port = port;
 		this.timeout = timeout;
 		this.verbose = verbose;
 	}
-	public ServerPinger(String address, int port)
+	public ServerPingerOld(String address, int port)
 	{
 		this(address, port, 4000, false);
 	}

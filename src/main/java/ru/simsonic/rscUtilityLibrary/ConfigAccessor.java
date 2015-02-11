@@ -3,6 +3,8 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.logging.Level;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -27,7 +29,8 @@ public class ConfigAccessor implements Closeable
 		InputStream defConfigStream = plugin.getResource(fileName);
 		if(defConfigStream != null)
 		{
-			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(
+				new InputStreamReader(defConfigStream, Charset.forName("UTF-8")));
 			fileConfiguration.setDefaults(defConfig);
 		}
 	}
