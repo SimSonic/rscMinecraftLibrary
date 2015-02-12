@@ -17,7 +17,19 @@ import java.util.regex.Pattern;
 
 public class ConnectionMySQL
 {
-	public static final Logger consoleLog = Logger.getLogger("Minecraft");
+	protected final Logger logger;
+	public ConnectionMySQL(Logger logger)
+	{
+		this.logger = logger;
+	}
+	public static class ConnectionParams
+	{
+		public String nodename;
+		public String database;
+		public String username;
+		public String password;
+		public String prefixes;
+	}
 	protected String RememberName;
 	protected String RememberURL;
 	protected String RememberUser;
@@ -25,7 +37,11 @@ public class ConnectionMySQL
 	private volatile Connection connection;
 	private volatile Statement  statement;
 	private static final Pattern patterndb = Pattern.compile("jdbc:mysql://(?:[\\w:\\-\\.]+)/([\\w\\-]+)");
-	public synchronized void Initialize(String name, String database, String username, String password, String prefixes)
+	public synchronized void initialize(ConnectionParams cp)
+	{
+		initialize(cp.nodename, cp.database, cp.username, cp.password, cp.prefixes);
+	}
+	public synchronized void initialize(String name, String database, String username, String password, String prefixes)
 	{
 		RememberName = (name != null) ? name : "unnamed";
 		RememberURL  = "jdbc:mysql://" + database;
@@ -47,7 +63,7 @@ public class ConnectionMySQL
 			for(String line = reader.readLine(); line != null; line = reader.readLine())
 				result.append(line).append("\n");
 		} catch(IOException | NullPointerException ex) {
-			consoleLog.log(Level.WARNING, "[rscAPI][SQL] Exception in LoadResource():\n{0}", ex);
+			logger.log(Level.WARNING, "[rscAPI][SQL] Exception in LoadResource():\n{0}", ex);
 		}
 		return result.toString();
 	}
@@ -76,37 +92,37 @@ public class ConnectionMySQL
 		{
 			if(connection != null)
 				if(!connection.isValid(0))
-					Disconnect();
+					disconnect();
 			if(connection == null)
-				return Connect();
+				return connect();
 			if(connection != null)
 				return connection.isValid(0);
 		} catch(SQLException ex) {
-			consoleLog.log(Level.WARNING, "[rscAPI][SQL] Exception in isConnected():\n{0}", ex);
+			logger.log(Level.WARNING, "[rscAPI][SQL] Exception in isConnected():\n{0}", ex);
 		}
 		return false;
 	}
-	public synchronized boolean Connect()
+	public synchronized boolean connect()
 	{
 		if(RememberURL == null || RememberUser == null || RememberPass == null)
 			return false;
 		if("".equals(RememberURL) || "".equals(RememberUser) || "".equals(RememberPass))
 			return false;
 		try
-		{
+		{ 
 			Class.forName("com.mysql.jdbc.Driver");
-			consoleLog.log(Level.INFO, "[rscAPI][SQL] Connecting to \"{0}\"...", RememberName);
+			logger.log(Level.INFO, "[rscAPI][SQL] Connecting to \"{0}\"...", RememberName);
 			String FixedURL = RememberURL + "?allowMultiQueries=true&autoReConnect=true";
 			connection = DriverManager.getConnection(FixedURL, RememberUser, RememberPass);
 			statement  = connection.createStatement();
 			return true;
 		} catch(SQLException | ClassNotFoundException | NullPointerException ex) {
-			consoleLog.log(Level.WARNING, "[rscAPI][SQL] Exception in Connect(\"{0}\"):\n{1}", new Object[] { RememberName, ex });
-			Disconnect();
+			logger.log(Level.WARNING, "[rscAPI][SQL] Exception in Connect(\"{0}\"):\n{1}", new Object[] { RememberName, ex });
+			disconnect();
 		}
 		return false;
 	}
-	public synchronized void Disconnect()
+	public synchronized void disconnect()
 	{
 		try
 		{
@@ -142,7 +158,7 @@ public class ConnectionMySQL
 			final ResultSet result = statement.executeQuery(queryExplicitation(query));
 			return result;
 		} catch(SQLException ex) {
-			consoleLog.log(Level.WARNING, "[rscAPI][SQL] Exception in Query():\n{0}", ex);
+			logger.log(Level.WARNING, "[rscAPI][SQL] Exception in Query():\n{0}", ex);
 		} finally {
 			Thread.currentThread().setName(threadName);
 		}
@@ -155,9 +171,9 @@ public class ConnectionMySQL
 		try
 		{
 			final boolean result = statement.execute(queryExplicitation(query));
-			return result;
+			return true;
 		} catch(SQLException ex) {
-			consoleLog.log(Level.WARNING, "[rscAPI][SQL] Exception in Execute():\n{0}", ex);
+			logger.log(Level.WARNING, "[rscAPI][SQL] Exception in Execute():\n{0}", ex);
 		} finally {
 			Thread.currentThread().setName(threadName);
 		}
