@@ -23,4 +23,9 @@ public abstract class RestartableThread implements Runnable
 			}
 		}
 	}
+	public final void join() throws InterruptedException
+	{
+		if(thread != null)
+			thread.join();
+	}
 }
