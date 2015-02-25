@@ -9,6 +9,13 @@ public abstract class RestartableThread implements Runnable
 		thread = new Thread(this);
 		thread.start();
 	}
+	public final void startDeamon()
+	{
+		stop();
+		thread = new Thread(this);
+		thread.setDaemon(true);
+		thread.start();
+	}
 	public final void stop()
 	{
 		if(thread != null)
