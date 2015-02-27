@@ -1,4 +1,4 @@
-package ru.simsonic.rscUtilityLibrary.BukkitListeners;
+package ru.simsonic.rscUtilityLibrary.Bukkit.Listeners;
 import java.util.HashSet;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;

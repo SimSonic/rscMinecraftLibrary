@@ -15,9 +15,11 @@ public class TimeIntervalParser
 		return interval;
 	}
 	private static final Pattern timeIntervalPattern = Pattern.compile(
-		"((?:\\d+)|(?:\\d+\\.\\d+))\\s*(second|sec|minute|min|hour|day|week|month|year|s|m|h|d|w|y)", Pattern.CASE_INSENSITIVE);
+		"((?:\\d+)|(?:\\d+\\.\\d+))\\s*(second|sec|minute|min|hour|day|week|month|year|s|m|h|d|w|y)");
 	private static int parseElement(String suffix)
 	{
+		if(suffix == null || "".equals(suffix))
+			return 0;
 		switch(suffix.toLowerCase())
 		{
 		case "second":
