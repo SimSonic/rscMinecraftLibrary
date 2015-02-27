@@ -10,11 +10,6 @@ class FairyCommandWrapper extends BukkitCommand
 	protected IFairyCommand        target;
 	protected FairyArgumentDesc[]  argumentList;
 	protected FairyCommandExecutor executor;
-	protected FairyCommandWrapper()
-	{
-		super(null);
-		// FOR EXECUTOR
-	}
 	protected FairyCommandWrapper(String name, IFairyCommand target, FairyArgumentDesc[] argumentList, FairyCommandExecutor executor)
 	{
 		super(name);

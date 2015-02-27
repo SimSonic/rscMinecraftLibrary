@@ -9,7 +9,7 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class FairyCommandExecutor extends FairyCommandWrapper implements CommandExecutor
+public class FairyCommandExecutor implements CommandExecutor
 {
 	private final JavaPlugin plugin;
 	public FairyCommandExecutor(JavaPlugin plugin)
