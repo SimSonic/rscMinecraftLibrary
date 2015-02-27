@@ -1,4 +1,5 @@
 package ru.simsonic.rscUtilityLibrary.Bukkit.Commands;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public class FairyArgument
@@ -8,11 +9,12 @@ public class FairyArgument
 	{
 		this.desc = desc;
 	}
-	protected boolean present;
-	protected String  keyword;
-	protected Player  player;
-	protected long    timeInterval;
 	protected FairyArgument[] parentArgs;
+	protected boolean         present;
+	protected String          keyword;
+	protected Player          player;
+	protected OfflinePlayer   offline;
+	protected long            timeInterval;
 	public FairyArgumentDesc getDescription()
 	{
 		return desc;
@@ -25,6 +27,10 @@ public class FairyArgument
 	{
 		return present;
 	}
+	public FairyArgument[] getParentArgs()
+	{
+		return parentArgs;
+	}
 	public String getKeyword()
 	{
 		return keyword;
@@ -33,12 +39,12 @@ public class FairyArgument
 	{
 		return player;
 	}
+	public OfflinePlayer getOfflinePlayer()
+	{
+		return offline;
+	}
 	public long getTimeInterval()
 	{
 		return timeInterval;
-	}
-	public FairyArgument[] getParentArgs()
-	{
-		return parentArgs;
 	}
 }

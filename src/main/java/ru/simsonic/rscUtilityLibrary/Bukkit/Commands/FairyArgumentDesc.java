@@ -7,7 +7,7 @@ public class FairyArgumentDesc
 	protected FairyArgumentType type;
 	protected String            caption;
 	protected boolean           required;
-	protected String            hintOnCover;
+	protected String            hint;
 	protected TabCompleter      completer;
 	protected final HashMap<String, FairyCommandWrapper> subcommands = new HashMap<>();
 	public FairyArgumentDesc(IFairyCommand[] subcommands)
@@ -46,7 +46,7 @@ public class FairyArgumentDesc
 	}
 	public FairyArgumentDesc setHint(String hint)
 	{
-		this.hintOnCover = hint;
+		this.hint = hint;
 		return this;
 	}
 }
