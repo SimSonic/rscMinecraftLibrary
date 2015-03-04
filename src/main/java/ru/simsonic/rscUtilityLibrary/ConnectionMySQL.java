@@ -155,8 +155,11 @@ public class ConnectionMySQL
 		Thread.currentThread().setName("rscAPI:SQL-read (" + threadName + ")");
 		try
 		{
-			final ResultSet result = statement.executeQuery(queryExplicitation(query));
-			return result;
+			if(isConnected())
+			{
+				final ResultSet result = statement.executeQuery(queryExplicitation(query));
+				return result;
+			}
 		} catch(SQLException ex) {
 			logger.log(Level.WARNING, "[rscAPI][SQL] Exception in Query():\n{0}", ex);
 		} finally {
@@ -170,8 +173,11 @@ public class ConnectionMySQL
 		Thread.currentThread().setName("rscAPI:SQL-write (" + threadName + ")");
 		try
 		{
-			final boolean result = statement.execute(queryExplicitation(query));
-			return true;
+			if(isConnected())
+			{
+				final boolean result = statement.execute(queryExplicitation(query));
+				return true;
+			}
 		} catch(SQLException ex) {
 			logger.log(Level.WARNING, "[rscAPI][SQL] Exception in Execute():\n{0}", ex);
 		} finally {

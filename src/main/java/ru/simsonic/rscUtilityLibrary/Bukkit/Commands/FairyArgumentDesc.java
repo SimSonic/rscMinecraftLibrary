@@ -9,6 +9,7 @@ public class FairyArgumentDesc
 	protected boolean           required;
 	protected String            hint;
 	protected TabCompleter      completer;
+	protected String            replacement;
 	protected final HashMap<String, FairyCommandWrapper> subcommands = new HashMap<>();
 	public FairyArgumentDesc(IFairyCommand[] subcommands)
 	{
