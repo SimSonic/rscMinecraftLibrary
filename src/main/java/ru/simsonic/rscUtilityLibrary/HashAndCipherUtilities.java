@@ -19,6 +19,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Formatter;
 import java.util.Random;
 import javax.crypto.Cipher;
@@ -218,7 +219,7 @@ public final class HashAndCipherUtilities
 			(new Random(43287234L)).nextBytes(salt);
 			cipher.init(mode, pbeKey, new PBEParameterSpec(salt, 5));
 			return cipher;
-		} catch(NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException ex) {
+		} catch(NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | InvalidKeySpecException | InvalidAlgorithmParameterException ex) {
 			throw new IOException(ex);
 		} catch(IOException ex) {
 			throw ex;
