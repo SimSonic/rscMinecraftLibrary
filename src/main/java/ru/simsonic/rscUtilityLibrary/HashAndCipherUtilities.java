@@ -2,7 +2,6 @@ package ru.simsonic.rscUtilityLibrary;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.File;
@@ -20,7 +19,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.Formatter;
 import java.util.Random;
 import javax.crypto.Cipher;
@@ -212,7 +210,7 @@ public final class HashAndCipherUtilities
 	{
 		try
 		{
-			final String algorythm = "PBEWithMD5AndDES"; // = new String(new BASE64Decoder().decodeBuffer("UEJFV2l0aE1ENUFuZERFUw==")); // "PBEWithMD5AndDES";
+			final String algorythm = new String(new BASE64Decoder().decodeBuffer("UEJFV2l0aE1ENUFuZERFUw==")); // "PBEWithMD5AndDES";
 			final String secretkey = new String(new BASE64Decoder().decodeBuffer("cGFzc3dvcmRmaWxl"));         // "passwordfile";
 			final Cipher cipher = Cipher.getInstance("PBEWithMD5AndDES");
 			final SecretKey pbeKey = SecretKeyFactory.getInstance(algorythm).generateSecret(new PBEKeySpec(secretkey.toCharArray()));
@@ -220,18 +218,10 @@ public final class HashAndCipherUtilities
 			(new Random(43287234L)).nextBytes(salt);
 			cipher.init(mode, pbeKey, new PBEParameterSpec(salt, 5));
 			return cipher;
+		} catch(NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException ex) {
+			throw new IOException(ex);
 		} catch(IOException ex) {
-			throw new IOException(ex);
-		} catch(NoSuchAlgorithmException ex) {
-			throw new IOException(ex);
-		} catch(NoSuchPaddingException ex) {
-			throw new IOException(ex);
-		} catch(InvalidKeySpecException ex) {
-			throw new IOException(ex);
-		} catch(InvalidKeyException ex) {
-			throw new IOException(ex);
-		} catch(InvalidAlgorithmParameterException ex) {
-			throw new IOException(ex);
+			throw ex;
 		}
 	}
 }
