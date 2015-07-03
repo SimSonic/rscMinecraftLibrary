@@ -1,4 +1,5 @@
 package ru.simsonic.rscUtilityLibrary.Bukkit.Commands;
+
 import java.util.List;
 
 public class CommandAnswerException extends Exception

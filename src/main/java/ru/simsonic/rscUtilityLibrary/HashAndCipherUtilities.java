@@ -8,6 +8,8 @@ import com.google.gson.stream.JsonWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -102,38 +104,46 @@ public final class HashAndCipherUtilities
 	{
 		return fileToSHA1(new File(filename));
 	}
-	public static <T> T loadEncrypted(File source, Class<T> dataClass)
+	public static <T> T loadObject(File source, Class<T> dataClass) throws IOException, NullPointerException
 	{
-		try
+		try(final JsonReader reader = new JsonReader(new FileReader(source)))
 		{
-			final JsonReader reader = new JsonReader(createCipherReader(source));
-			final T result = new Gson().fromJson(reader, dataClass);
-			reader.close();
-			return result;
-		} catch(NullPointerException ex) {
-			System.out.println(ex);
-		} catch(JsonSyntaxException ex) {
-			System.out.println(ex);
+			return new Gson().fromJson(reader, dataClass);
 		} catch(JsonParseException ex) {
-			System.out.println(ex);
-		} catch(IOException ex) {
+			throw new IOException(ex);
+		}
+	}
+	public static <T> boolean saveObject(File target, Object data, Class<T> dataClass) throws IOException, NullPointerException
+	{
+		try(final JsonWriter writer = new JsonWriter(new FileWriter(target)))
+		{
+			writer.setIndent("\t");
+			new Gson().toJson(data, dataClass, writer);
+			writer.flush();
+			return true;
+		} catch(JsonParseException ex) {
+			throw new IOException(ex);
+		}
+	}
+	public static <T> T loadEncryptedObject(File source, Class<T> dataClass)
+	{
+		try(final JsonReader reader = new JsonReader(createCipherReader(source)))
+		{
+			return new Gson().fromJson(reader, dataClass);
+		} catch(NullPointerException | IOException | JsonParseException ex) {
 			System.out.println(ex);
 		}
 		return null;
 	}
-	public static <T> boolean saveEncrypted(File target, Object data, Class<T> dataClass)
+	public static <T> boolean saveEncryptedObject(File target, Object data, Class<T> dataClass)
 	{
-		try
+		try(final JsonWriter writer = new JsonWriter(createCipherWriter(target)))
 		{
-			final JsonWriter writer = new JsonWriter(HashAndCipherUtilities.createCipherWriter(target));
 			writer.setIndent("\t");
 			new Gson().toJson(data, dataClass, writer);
 			writer.flush();
-			writer.close();
 			return true;
-		} catch(IOException ex) {
-		} catch(NullPointerException ex) {
-		} catch(JsonParseException ex) {
+		} catch(NullPointerException | IOException | JsonParseException ex) {
 		}
 		return false;
 	}
