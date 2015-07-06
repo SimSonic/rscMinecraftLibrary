@@ -1,4 +1,4 @@
-# rscUtilityLibrary
+# rscMinecraftLibrary
 A set of classes which could be useful for many projects.
 
 To use it add dependency to your project's `pom.xml` using this url:
