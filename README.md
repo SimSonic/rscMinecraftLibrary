@@ -15,8 +15,8 @@ To use it add dependency to your project's `pom.xml` using this url:
 	<dependencies>
 		<dependency>
 			<groupId>ru.simsonic</groupId>
-			<artifactId>rscUtilityLibrary</artifactId>
-			<version>2.0.4</version>
+			<artifactId>rscMinecraftLibrary</artifactId>
+			<version>2.1.0</version>
 		</dependency>
 		...
 	</dependencies>
