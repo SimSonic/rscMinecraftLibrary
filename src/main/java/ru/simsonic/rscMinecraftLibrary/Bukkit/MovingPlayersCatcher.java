@@ -1,4 +1,5 @@
-package ru.simsonic.rscUtilityLibrary.Bukkit.Listeners;
+package ru.simsonic.rscMinecraftLibrary.Bukkit;
+
 import java.util.HashSet;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;

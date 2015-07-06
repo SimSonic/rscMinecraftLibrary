@@ -1,4 +1,4 @@
-package ru.simsonic.rscUtilityLibrary.Bukkit;
+package ru.simsonic.rscMinecraftLibrary.Bukkit;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;

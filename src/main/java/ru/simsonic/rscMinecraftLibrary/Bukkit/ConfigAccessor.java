@@ -1,4 +1,5 @@
-package ru.simsonic.rscUtilityLibrary;
+package ru.simsonic.rscMinecraftLibrary.Bukkit;
+
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;

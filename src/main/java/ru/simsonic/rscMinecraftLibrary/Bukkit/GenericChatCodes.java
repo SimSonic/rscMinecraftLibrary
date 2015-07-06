@@ -1,4 +1,4 @@
-package ru.simsonic.rscUtilityLibrary.TextProcessing;
+package ru.simsonic.rscMinecraftLibrary.Bukkit;
 
 import java.util.ArrayList;
 import java.util.HashMap;

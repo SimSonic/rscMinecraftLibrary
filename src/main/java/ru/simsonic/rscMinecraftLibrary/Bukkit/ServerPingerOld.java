@@ -1,4 +1,4 @@
-package ru.simsonic.rscUtilityLibrary;
+package ru.simsonic.rscMinecraftLibrary.Bukkit;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;

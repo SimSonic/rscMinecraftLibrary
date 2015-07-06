@@ -1,4 +1,4 @@
-package ru.simsonic.rscUtilityLibrary.Bukkit.Commands;
+package ru.simsonic.rscMinecraftLibrary.Bukkit;
 
 import java.util.List;
 
