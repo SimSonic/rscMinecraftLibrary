@@ -1,5 +1,6 @@
 package ru.simsonic.rscMinecraftLibrary.Bukkit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandAnswerException extends Exception
@@ -7,15 +8,25 @@ public class CommandAnswerException extends Exception
 	private final String[] lines;
 	public CommandAnswerException(String message)
 	{
-		this.lines = new String[] { message };
+		this.lines = (message != null) ? new String[] { message } : new String[] {};
 	}
 	public CommandAnswerException(String[] messages)
 	{
-		this.lines = messages;
+		final ArrayList<String> buffer = new ArrayList<>();
+		if(messages != null)
+			for(String message : messages)
+				if(message != null)
+					buffer.add(message);
+		this.lines = buffer.toArray(new String[buffer.size()]);
 	}
 	public CommandAnswerException(List<String> messages)
 	{
-		this.lines = messages.toArray(new String[messages.size()]);
+		final ArrayList<String> buffer = new ArrayList<>();
+		if(messages != null)
+			for(String message : messages)
+				if(message != null)
+					buffer.add(message);
+		this.lines = buffer.toArray(new String[buffer.size()]);
 	}
 	public String[] getMessageArray()
 	{
