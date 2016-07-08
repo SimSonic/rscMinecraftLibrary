@@ -31,6 +31,7 @@ public final class BukkitUpdater implements Listener
 	private final JavaPlugin      plugin;
 	private final String          latestURL;
 	private final String          chatPrefix;
+	private final String          updateCmd;
 	private final HashSet<Player> staff = new HashSet<>();
 	private final static String   TEXT_IS_LATEST    = "You are using the latest version.";
 	private final static String   TEXT_DOWNLOADING  = "Downloading update ...";
@@ -49,11 +50,12 @@ public final class BukkitUpdater implements Listener
 		"{_LG}Installation complete!",
 		"Please restart your server to avoid errors.",
 	};
-	public BukkitUpdater(JavaPlugin plugin, String latestURL, String chatPrefix)
+	public BukkitUpdater(JavaPlugin plugin, String latestURL, String chatPrefix, String updateCmd)
 	{
 		this.plugin     = plugin;
 		this.latestURL  = latestURL;
 		this.chatPrefix = chatPrefix;
+		this.updateCmd  = updateCmd;
 	}
 	public void onEnable()
 	{
@@ -167,7 +169,7 @@ public final class BukkitUpdater implements Listener
 			+ (latest.snapshot ? "{_DS}snapshot {_LS}" : "{_WH}release {_LS}")
 			+ "version {_LG}" + latest.version + "{_LS} is available!");
 		result.addAll(Arrays.asList(latest.notes));
-		result.add("Apply this update with command {GOLD}/rscfjd update do");
+		result.add("Apply this update with command {GOLD}" + updateCmd);
 		return result;
 	}
 	public void onAdminJoin(Player player, boolean fromEvent)
