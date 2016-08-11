@@ -6,6 +6,10 @@ import java.util.List;
 public class CommandAnswerException extends Exception
 {
 	private final String[] lines;
+	public CommandAnswerException()
+	{
+		this.lines = new String[] {};
+	}
 	public CommandAnswerException(String message)
 	{
 		this.lines = (message != null) ? new String[] { message } : new String[] {};
