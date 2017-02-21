@@ -169,7 +169,8 @@ public final class BukkitUpdater implements Listener
 			+ (latest.snapshot ? "{_DS}snapshot {_LS}" : "{_WH}release {_LS}")
 			+ "version {_LG}" + latest.version + "{_LS} is available!");
 		result.addAll(Arrays.asList(latest.notes));
-		result.add("Apply this update with command {GOLD}" + updateCmd);
+		if(updateCmd != null && !"".equals(updateCmd))
+			result.add("Apply this update with command {GOLD}" + updateCmd);
 		return result;
 	}
 	public void onAdminJoin(Player player, boolean fromEvent)
